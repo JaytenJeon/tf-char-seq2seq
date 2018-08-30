@@ -1,14 +1,11 @@
 import re
-import os
+import numpy as np
+
 
 class Dialogue:
-    def __init__(self, path):
-        self.sentences = self.load_data(path)
-        self.seq_data = self.make_seq_data(self.sentences)
-        if not os.path.isfile(path+'.voc'):
-            self.make_voc(path+'.voc')
-
-        self.voc_arr = ['_P_', '_S_', '_E_', '_U_', ' '] + self.load_voc(path + '.voc')
+    def __init__(self):
+        self.seq_data = np.load('./data/conversation_train.npy')
+        self.voc_arr = self.load_voc('./data/conversation.voc')
 
         self.voc_dict = {voc: i for i, voc in enumerate(self.voc_arr)}
         self.voc_size = len(self.voc_arr)
@@ -35,7 +32,7 @@ class Dialogue:
         return tokens
 
     def pad(self, tokens, max_len):
-        padded = tokens + ['_P_'] * (max_len - len(tokens))
+        padded = tokens + [0] * (max_len - len(tokens))
         return padded
 
     def make_voc(self, path):
@@ -85,9 +82,9 @@ class Dialogue:
             dec_input = batch_set[i + 1]
             enc_seq_len.append(len(enc_input))
             dec_seq_len.append(len(dec_input) + 1)
-            enc = self.tokens_to_ids(self.pad(enc_input, max_len))
-            dec = self.tokens_to_ids(self.pad(['_S_'] + dec_input, max_len))
-            target = self.tokens_to_ids(self.pad(dec_input + ['_E_'], dec_max_len))
+            enc = self.pad(enc_input, max_len)
+            dec = self.pad([1] + dec_input, max_len)
+            target = self.pad(dec_input + [2], dec_max_len)
 
             enc_batch.append(enc)
             dec_batch.append(dec)

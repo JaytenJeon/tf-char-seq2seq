@@ -27,8 +27,8 @@ def train(model, hparams):
                 model.saver.save(sess, './model/seq2seq', global_step=epoch)
 
 
-path = './data/conversation.txt'
-dialogue = Dialogue(path)
+# path = './data/conversation_train.npy'
+dialogue = Dialogue()
 
 hparams = tf.contrib.training.HParams(total_epochs=1000,
                                       num_units=128,
@@ -36,7 +36,7 @@ hparams = tf.contrib.training.HParams(total_epochs=1000,
                                       voc_size=dialogue.voc_size,
                                       embedding_size=100,
                                       batch_size=100,
-                                      total_batch=len(dialogue.seq_data) // 100 + 1)
+                                      total_batch=len(dialogue.seq_data) / 100)
 
 train_model = Seq2Seq(hparams, 'train')
 print("start")
