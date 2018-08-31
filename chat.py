@@ -35,12 +35,12 @@ def chat(model):
         line = input(response + "\n>")
 
 
-path = 'chat.log.txt'
-dialogue = Dialogue(path)
+
+dialogue = Dialogue()
 
 hparams = tf.contrib.training.HParams(total_epochs=1000,
                                       num_units=128,
-                                      learning_rate=0.0001,
+                                      learning_rate=0.001,
                                       voc_size=dialogue.voc_size,
                                       embedding_size=100,
                                       batch_size=100,

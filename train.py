@@ -20,19 +20,17 @@ def train(model, hparams):
                                                                              model.source_seq_length: enc_seq_len,
                                                                              model.target_seq_length: dec_seq_len})
 
-                #     print(_cost, _a)
                 epoch_loss += _cost / hparams.total_batch
             if epoch % 100 == 0:
                 print(epoch, epoch_loss)
                 model.saver.save(sess, './model/seq2seq', global_step=epoch)
 
 
-# path = './data/conversation_train.npy'
 dialogue = Dialogue()
 
 hparams = tf.contrib.training.HParams(total_epochs=1000,
                                       num_units=128,
-                                      learning_rate=0.0001,
+                                      learning_rate=0.001,
                                       voc_size=dialogue.voc_size,
                                       embedding_size=100,
                                       batch_size=100,
