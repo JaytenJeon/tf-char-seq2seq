@@ -1,0 +1,6 @@
+model_checkpoint_path: "seq2seq-900"
+all_model_checkpoint_paths: "seq2seq-500"
+all_model_checkpoint_paths: "seq2seq-600"
+all_model_checkpoint_paths: "seq2seq-700"
+all_model_checkpoint_paths: "seq2seq-800"
+all_model_checkpoint_paths: "seq2seq-900"

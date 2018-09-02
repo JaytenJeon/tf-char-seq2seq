@@ -10,7 +10,7 @@ def train(model, hparams):
             model.saver.restore(sess, checkpoint.model_checkpoint_path)
         else:
             sess.run(tf.global_variables_initializer())
-        for epoch in range(hparams.total_epochs):
+        for epoch in range(901, hparams.total_epochs):
             epoch_loss = 0
             for batch in range(hparams.total_batch):
                 enc_batch, dec_batch, target_batch, enc_seq_len, dec_seq_len, max_len = dialogue.next_batch(hparams.batch_size)
@@ -28,7 +28,7 @@ def train(model, hparams):
 
 dialogue = Dialogue()
 
-hparams = tf.contrib.training.HParams(total_epochs=1000,
+hparams = tf.contrib.training.HParams(total_epochs=5000,
                                       num_units=128,
                                       learning_rate=0.001,
                                       voc_size=dialogue.voc_size,

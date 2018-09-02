@@ -28,7 +28,7 @@ class Dialogue:
         return ids
 
     def ids_to_tokens(self, ids):
-        tokens = [self.voc_arr[id] for id in ids]
+        tokens = [self.voc_arr[id] if id != 4 else ' ' for id in ids]
         return tokens
 
     def pad(self, tokens, max_len):
@@ -74,7 +74,7 @@ class Dialogue:
         enc_max_len, dec_max_len, max_len = self.max_len(batch_set)
 
         self.index_in_epoch = self.index_in_epoch + batch_size
-        if self.index_in_epoch > len(self.seq_data):
+        if self.index_in_epoch >= len(self.seq_data):
             self.index_in_epoch = 0
 
         for i in range(0, len(batch_set) - 1, 2):
